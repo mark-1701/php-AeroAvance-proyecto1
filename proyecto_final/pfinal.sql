@@ -133,7 +133,7 @@ BEGIN
     select
     c.*,
     CURDATE() AS Fecha,
-    u.email as email
+    u.*
     from compras c 
     left join users u
     on u.id=c.IdUser

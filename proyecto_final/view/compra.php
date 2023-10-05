@@ -11,15 +11,15 @@
     <div class="form-group ">
       <div class="form-row">
         <div class="col">
-          <div type="text" name="name" class="form-control" placeholder="Full Name" required>Roberto</div>
+          <div type="text" name="name" class="form-control" placeholder="Full Name" required><?php print_r($vuelo['name'])?></div>
         </div>
         <div class="col">
-          <div type="email" name="email" class="form-control" placeholder="Email Address" required>robertoriv500@gmail.com</div>
+          <div type="email" name="email" class="form-control" placeholder="Email Address" required><?php print_r($vuelo['email'])?></div>
         </div>
       </div>
     </div>
     <div class="form-group">
-      <textarea placeholder="Your Message" class="form-control hide-field" name="message" rows="10" required>hola, prueba de mensaje 1</textarea>
+      <textarea placeholder="Your Message" class="form-control hide-field" name="message" rows="10" required>Ha sido exitosa su compra de boleto</textarea>
     </div>
     <button type="submit" class="btn btn-lg btn-dark btn-block ">EnviarCorreo</button>
   </form>
