@@ -17,24 +17,29 @@ class vuelosController
         // Muestra una lista de vuelos
         $origen = $_POST['desde_ubicaciones'];
         $destino = $_POST['hacia_ubicaciones'];
-        $condicion = " Origen='" . $origen . "' AND Destino='" . $destino . "'";
+        $condicion = " o.Nombre='" . $origen . "' AND d.Nombre='" . $destino . "'";
         $vuelos = new VueloModel();
-        $vuelos = $vuelos->mostrar('vw_vuelos', $condicion);
+        $vuelos = $vuelos->datosvuelos($condicion);
         require 'view/vuelos.php';
     }
 
     static function compra()
     {
-        // Muestra una lista de vuelos
-        require_once('lib/TCPDF/tcpdf.php');
+        $vuelo = new VueloModel(); 
+        $idUser = 1;
+        $vuelo = $vuelo->insertCompra($_GET['id'], $idUser);
+        $vueloSeriablizable = serialize($vuelo);
+        setcookie("datosCompra",$vueloSeriablizable, time() + 3600);
+        
+        require 'view/compra.php';
+    }
 
-        $vuelo = new VueloModel();
-        $vuelo = $vuelo->datosvuelo('vw_vuelos', 1);
-
-    
-        $pdf = new TCPDF();
-
-        // Establece el título del documento
+    static function createPDF(){
+         // Muestra una lista de vuelos
+         require_once('lib/TCPDF/tcpdf.php');
+         $dataSerial = $_COOKIE['datosCompra'];
+         $vuelo = unserialize($dataSerial);
+         $pdf = new TCPDF();
         $pdf->SetTitle('Boleto de Avión');
 
         // Agrega una página al PDF
@@ -53,7 +58,7 @@ class vuelosController
 
         // Información del boleto (esto debe ser dinámico en una aplicación real)
         $nombrePasajero = 'Juan Pérez';
-        $numeroVuelo = 'Vuelo'.$vuelo['Id'];
+        $numeroVuelo = 'Vuelo' . $vuelo['Id'];
         $fechaVuelo = $vuelo['Fecha'];
         $precioBoleto = $vuelo['Precio'];
 
@@ -92,8 +97,10 @@ class vuelosController
         $pdf->Cell(0, 10, 'Asientos:', 0, 1);
         $pdf->SetFont('dejavusans', '', 14);
         $pdf->Cell(0, 10, $vuelo['Pasajeros'], 0, 1);
-
+        
         // Genera el PDF y lo muestra en el navegador
-        $pdf->Output();
+        $pdf->Output('compra.pdf','I');
     }
+
+    
 }

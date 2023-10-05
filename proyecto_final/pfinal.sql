@@ -1,241 +1,217 @@
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
---
--- Servidor: 127.0.0.1
--- Tiempo de generación: 30-09-2023 a las 12:10:50
--- Versión del servidor: 10.4.28-MariaDB
--- Versión de PHP: 8.0.28
+/*
+SQLyog Ultimate v11.33 (64 bit)
+MySQL - 10.4.19-MariaDB : Database - pfinal
+*********************************************************************
+*/
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
+/*!40101 SET NAMES utf8 */;
 
+/*!40101 SET SQL_MODE=''*/;
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+/*Table structure for table `compras` */
 
---
--- Base de datos: `pfinal`
---
+DROP TABLE IF EXISTS `compras`;
 
--- --------------------------------------------------------
+CREATE TABLE `compras` (
+  `Id` int(2) NOT NULL AUTO_INCREMENT,
+  `IdVuelos` int(2) DEFAULT NULL,
+  `Precio` float(6,2) DEFAULT NULL,
+  `Pasajeros` int(2) DEFAULT NULL,
+  `IdOrigen` int(2) DEFAULT NULL,
+  `IdDestino` int(2) DEFAULT NULL,
+  `IdUser` int(2) DEFAULT NULL,
+  PRIMARY KEY (`Id`),
+  KEY `fk_vuelo` (`IdVuelos`),
+  KEY `fk_orige` (`IdOrigen`),
+  KEY `fk_dest` (`IdDestino`),
+  KEY `fk_user` (`IdUser`),
+  CONSTRAINT `fk_dest` FOREIGN KEY (`IdDestino`) REFERENCES `destinos` (`Id`),
+  CONSTRAINT `fk_orige` FOREIGN KEY (`IdOrigen`) REFERENCES `origenes` (`Id`),
+  CONSTRAINT `fk_user` FOREIGN KEY (`IdUser`) REFERENCES `users` (`id`),
+  CONSTRAINT `fk_vuelo` FOREIGN KEY (`IdVuelos`) REFERENCES `vuelos` (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
 
---
--- Estructura de tabla para la tabla `destinos`
---
+/*Data for the table `compras` */
+
+insert  into `compras`(`Id`,`IdVuelos`,`Precio`,`Pasajeros`,`IdOrigen`,`IdDestino`,`IdUser`) values (1,1,200.00,2,1,2,1),(2,1,200.00,2,1,2,1),(3,1,200.00,2,1,2,1),(4,1,200.00,2,1,2,1),(5,1,200.00,2,1,2,1),(6,1,200.00,2,1,2,1),(7,1,200.00,2,1,2,1),(8,1,200.00,2,1,2,1);
+
+/*Table structure for table `destinos` */
+
+DROP TABLE IF EXISTS `destinos`;
 
 CREATE TABLE `destinos` (
-  `Id` int(2) NOT NULL,
-  `Nombre` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `Id` int(2) NOT NULL AUTO_INCREMENT,
+  `Nombre` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
---
--- Volcado de datos para la tabla `destinos`
---
+/*Data for the table `destinos` */
 
-INSERT INTO `destinos` (`Id`, `Nombre`) VALUES
-(1, 'CIUDAD GUATEMALA'),
-(2, 'PETEN, GUATEMALA'),
-(3, 'BELICE');
+insert  into `destinos`(`Id`,`Nombre`) values (1,'CIUDAD GUATEMALA'),(2,'PETEN, GUATEMALA'),(3,'BELICE');
 
--- --------------------------------------------------------
+/*Table structure for table `origenes` */
 
---
--- Estructura de tabla para la tabla `origenes`
---
+DROP TABLE IF EXISTS `origenes`;
 
 CREATE TABLE `origenes` (
-  `Id` int(2) NOT NULL,
-  `Nombre` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `Id` int(2) NOT NULL AUTO_INCREMENT,
+  `Nombre` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
---
--- Volcado de datos para la tabla `origenes`
---
+/*Data for the table `origenes` */
 
-INSERT INTO `origenes` (`Id`, `Nombre`) VALUES
-(1, 'CIUDAD GUATEMALA'),
-(2, 'PETEN, GUATEMALA');
+insert  into `origenes`(`Id`,`Nombre`) values (1,'CIUDAD GUATEMALA'),(2,'PETEN, GUATEMALA');
 
--- --------------------------------------------------------
+/*Table structure for table `type` */
 
---
--- Estructura de tabla para la tabla `type`
---
+DROP TABLE IF EXISTS `type`;
 
 CREATE TABLE `type` (
   `type` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Volcado de datos para la tabla `type`
---
+/*Data for the table `type` */
 
-INSERT INTO `type` (`type`) VALUES
-('Administrador'),
-('Contador'),
-('Ventas');
+insert  into `type`(`type`) values ('Administrador'),('Contador'),('Ventas');
 
--- --------------------------------------------------------
+/*Table structure for table `users` */
 
---
--- Estructura de tabla para la tabla `users`
---
+DROP TABLE IF EXISTS `users`;
 
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `type` varchar(45) NOT NULL,
   `name` varchar(45) NOT NULL,
   `phone_number` varchar(45) NOT NULL,
   `email` varchar(45) NOT NULL,
-  `state` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `state` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
---
--- Volcado de datos para la tabla `users`
---
+/*Data for the table `users` */
 
-INSERT INTO `users` (`id`, `type`, `name`, `phone_number`, `email`, `state`) VALUES
-(1, 'Administrador', 'Marco', '12345678', 'marco@gmial.com', 'activo'),
-(3, 'Ventas', '1', '1', '2', '1');
+insert  into `users`(`id`,`type`,`name`,`phone_number`,`email`,`state`) values (1,'Administrador','Marco','12345678','marco@gmial.com','activo'),(3,'Ventas','1','1','2','1');
 
--- --------------------------------------------------------
+/*Table structure for table `vuelos` */
 
---
--- Estructura de tabla para la tabla `vuelos`
---
+DROP TABLE IF EXISTS `vuelos`;
 
 CREATE TABLE `vuelos` (
-  `Id` int(2) NOT NULL,
+  `Id` int(2) NOT NULL AUTO_INCREMENT,
   `IdOrigen` int(2) DEFAULT NULL,
   `IdDestino` int(2) DEFAULT NULL,
   `FechaViaje` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `Pasajeros` int(1) DEFAULT NULL,
-  `Precio` float(6,2) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `Precio` float(6,2) DEFAULT NULL,
+  PRIMARY KEY (`Id`),
+  KEY `fk_origen` (`IdOrigen`),
+  KEY `fk_destino` (`IdDestino`),
+  CONSTRAINT `fk_destino` FOREIGN KEY (`IdDestino`) REFERENCES `destinos` (`Id`),
+  CONSTRAINT `fk_origen` FOREIGN KEY (`IdOrigen`) REFERENCES `origenes` (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 
---
--- Volcado de datos para la tabla `vuelos`
---
+/*Data for the table `vuelos` */
 
-INSERT INTO `vuelos` (`Id`, `IdOrigen`, `IdDestino`, `FechaViaje`, `Pasajeros`, `Precio`) VALUES
-(1, 1, 2, '2023-09-30 05:52:28', 2, 200.00),
-(2, 2, 1, '2023-09-30 05:52:32', 1, 500.00),
-(4, 2, 3, '2023-09-30 05:52:34', 3, 100.00),
-(5, 1, 2, '2023-09-30 06:14:14', 30, 1.00);
+insert  into `vuelos`(`Id`,`IdOrigen`,`IdDestino`,`FechaViaje`,`Pasajeros`,`Precio`) values (1,1,2,'2023-09-29 23:52:28',2,200.00),(2,2,1,'2023-09-29 23:52:32',1,500.00),(4,2,3,'2023-09-29 23:52:34',3,100.00);
 
--- --------------------------------------------------------
+/* Procedure structure for procedure `compra` */
 
---
--- Estructura Stand-in para la vista `vw_vuelos`
--- (Véase abajo para la vista actual)
---
-CREATE TABLE `vw_vuelos` (
-`Id` int(2)
-,`IdOrigen` int(2)
-,`Origen` varchar(50)
-,`IdDestino` int(2)
-,`Destino` varchar(50)
-,`Fecha` timestamp
-,`Pasajeros` int(1)
-,`Precio` float(6,2)
-);
+/*!50003 DROP PROCEDURE IF EXISTS  `compra` */;
 
--- --------------------------------------------------------
+DELIMITER $$
 
---
--- Estructura para la vista `vw_vuelos`
---
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `compra`(IN idvuelo int,in iduser int)
+BEGIN
+    insert into compras(IdVuelos,Precio,Pasajeros,IdOrigen,IdDestino,IdUser)
+    select Id,Precio,Pasajeros,IdOrigen,IdDestino,iduser from vuelos where Id=idvuelo;
+    
+    select
+    c.*,
+    CURDATE() AS Fecha,
+    u.email as email
+    from compras c 
+    left join users u
+    on u.id=c.IdUser
+    where c.IdVuelos=idvuelo
+    order by c.id desc
+    limit 1;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `getData` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `getData` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `getData`(IN strTabla VARCHAR(100), IN params VARCHAR(100))
+BEGIN
+    SET @sql = CONCAT('SELECT * FROM ', strTabla, ' WHERE ', params);
+    PREPARE stmt FROM @sql;
+    EXECUTE stmt;
+    DEALLOCATE PREPARE stmt;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `getDataVuelos` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `getDataVuelos` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `getDataVuelos`(IN params VARCHAR (100))
+BEGIN
+  DECLARE sqlStatement VARCHAR (500) ;SET sqlStatement = CONCAT('SELECT
+  `v`.`Id`         AS `Id`,
+  `o`.`Id`         AS `IdOrigen`,
+  `o`.`Nombre`     AS `Origen`,
+  `d`.`Id`         AS `IdDestino`,
+  `d`.`Nombre`     AS `Destino`,
+  `v`.`FechaViaje` AS `Fecha`,
+  `v`.`Pasajeros`  AS `Pasajeros`,
+  `v`.`Precio`     AS `Precio`
+FROM `vuelos` `v`
+    INNER JOIN `origenes` `o`
+      ON `v`.`IdOrigen` = `o`.`Id`
+   INNER JOIN `destinos` `d`
+     ON `d`.`Id` = `v`.`IdDestino` WHERE ', params);
+    PREPARE stmt FROM sqlStatement;
+    EXECUTE stmt;
+    DEALLOCATE PREPARE stmt;
+END */$$
+DELIMITER ;
+
+/*Table structure for table `vw_vuelos` */
+
 DROP TABLE IF EXISTS `vw_vuelos`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_vuelos`  AS   (select `v`.`Id` AS `Id`,`o`.`Id` AS `IdOrigen`,`o`.`Nombre` AS `Origen`,`d`.`Id` AS `IdDestino`,`d`.`Nombre` AS `Destino`,`v`.`FechaViaje` AS `Fecha`,`v`.`Pasajeros` AS `Pasajeros`,`v`.`Precio` AS `Precio` from ((`vuelos` `v` left join `origenes` `o` on(`v`.`IdOrigen` = `o`.`Id`)) left join `destinos` `d` on(`d`.`Id` = `v`.`IdDestino`)))  ;
+/*!50001 DROP VIEW IF EXISTS `vw_vuelos` */;
+/*!50001 DROP TABLE IF EXISTS `vw_vuelos` */;
 
---
--- Índices para tablas volcadas
---
+/*!50001 CREATE TABLE  `vw_vuelos`(
+ `Id` int(2) ,
+ `IdOrigen` int(2) ,
+ `Origen` varchar(50) ,
+ `IdDestino` int(2) ,
+ `Destino` varchar(50) ,
+ `Fecha` timestamp ,
+ `Pasajeros` int(1) ,
+ `Precio` float(6,2) 
+)*/;
 
---
--- Indices de la tabla `destinos`
---
-ALTER TABLE `destinos`
-  ADD PRIMARY KEY (`Id`);
+/*View structure for view vw_vuelos */
 
---
--- Indices de la tabla `origenes`
---
-ALTER TABLE `origenes`
-  ADD PRIMARY KEY (`Id`);
+/*!50001 DROP TABLE IF EXISTS `vw_vuelos` */;
+/*!50001 DROP VIEW IF EXISTS `vw_vuelos` */;
 
---
--- Indices de la tabla `type`
---
-ALTER TABLE `type`
-  ADD PRIMARY KEY (`type`);
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_vuelos` AS (select `v`.`Id` AS `Id`,`o`.`Id` AS `IdOrigen`,`o`.`Nombre` AS `Origen`,`d`.`Id` AS `IdDestino`,`d`.`Nombre` AS `Destino`,`v`.`FechaViaje` AS `Fecha`,`v`.`Pasajeros` AS `Pasajeros`,`v`.`Precio` AS `Precio` from ((`vuelos` `v` left join `origenes` `o` on(`v`.`IdOrigen` = `o`.`Id`)) left join `destinos` `d` on(`d`.`Id` = `v`.`IdDestino`))) */;
 
---
--- Indices de la tabla `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_type_id` (`type`);
-
---
--- Indices de la tabla `vuelos`
---
-ALTER TABLE `vuelos`
-  ADD PRIMARY KEY (`Id`),
-  ADD KEY `fk_origen` (`IdOrigen`),
-  ADD KEY `fk_destino` (`IdDestino`);
-
---
--- AUTO_INCREMENT de las tablas volcadas
---
-
---
--- AUTO_INCREMENT de la tabla `destinos`
---
-ALTER TABLE `destinos`
-  MODIFY `Id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT de la tabla `origenes`
---
-ALTER TABLE `origenes`
-  MODIFY `Id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT de la tabla `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT de la tabla `vuelos`
---
-ALTER TABLE `vuelos`
-  MODIFY `Id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- Restricciones para tablas volcadas
---
-
---
--- Filtros para la tabla `users`
---
-ALTER TABLE `users`
-  ADD CONSTRAINT `fk_type_id` FOREIGN KEY (`type`) REFERENCES `type` (`type`);
-
---
--- Filtros para la tabla `vuelos`
---
-ALTER TABLE `vuelos`
-  ADD CONSTRAINT `fk_destino` FOREIGN KEY (`IdDestino`) REFERENCES `destinos` (`Id`),
-  ADD CONSTRAINT `fk_origen` FOREIGN KEY (`IdOrigen`) REFERENCES `origenes` (`Id`);
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;

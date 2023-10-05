@@ -10,19 +10,8 @@ class VueloModel{
         $this->db=new PDO('mysql:host=localhost;dbname=pfinal',"root","");
     }
  
-    public function insertar($tabla, $data){
-        $consulta="insert into ".$tabla." values(null,". $data .")";
-        $resultado=$this->db->query($consulta);
-        if ($resultado) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-
     public function mostrar($tabla, $condicion){
-        $consul="select * from ".$tabla." where ".$condicion.";";
+        $consul='CALL getData("'.$tabla.'","'.$condicion.'");';
         $resu=$this->db->query($consul);
         while($filas = $resu->FETCHALL(PDO::FETCH_ASSOC)) {
             $this->index[]=$filas;
@@ -31,14 +20,32 @@ class VueloModel{
         return $this->index;
     }
 
-    public function datosvuelo($tabla, $condicion){
-        $consul="select * from ".$tabla." where ".$condicion.";";
+    public function insertCompra($id,$idUser){
+        $consul='CALL compra('.$id.','.$idUser.');';
+        $resu=$this->db->query($consul);
+        $data=$resu->FETCHALL(PDO::FETCH_ASSOC);
+        $data=$data[0];
+        return $data;
+    }
+
+    public function datosvuelo($condicion){
+        $consul='CALL getDataVuelos("'.$condicion.'");';
         $resu=$this->db->query($consul);
         $data=$resu->FETCHALL(PDO::FETCH_ASSOC);
 
         $data=$data[0];
         
         return $data;
+    }
+
+    public function datosvuelos($condicion){
+        $consul='CALL getDataVuelos("'.$condicion.'");';
+        $resu=$this->db->query($consul);
+        while($filas = $resu->FETCHALL(PDO::FETCH_ASSOC)) {
+            $this->index[]=$filas;
+        }
+        
+        return $this->index;
     }
 }
 ?>
