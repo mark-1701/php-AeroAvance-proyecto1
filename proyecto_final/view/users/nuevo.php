@@ -8,10 +8,10 @@
         <input type="text" name="type" class="form-control"><br>
         <label for="" class="special-label">Nombre</label><br>
         <input type="text" name="name" class="form-control"><br>
-        <label for="" class="special-label">Número de Teléfono</label><br>
-        <input type="text" name="phone_number" class="form-control"><br>
-        <label for="" class="special-label">Correo</label><br>
+        <label for="" class="special-label">Email</label><br>
         <input type="text" name="email" class="form-control"><br>
+        <label for="" class="special-label">Password</label><br>
+        <input type="text" name="password" class="form-control"><br>
         <label for="" class="special-label">Estado</label><br>
         <input type="text" name="state" class="form-control"><br>
         <input type="submit" name="btn" class="btn btn-primary">

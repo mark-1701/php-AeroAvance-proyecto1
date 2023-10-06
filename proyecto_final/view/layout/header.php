@@ -37,15 +37,15 @@
                 </a>
             </li>
             <li>
-                <a href="main_vuelos.php">
+                <a href="customers_login.php">
                     <span class="material-symbols-outlined"> airplane_ticket </span>
                     <p>Comprar Boleto</p>
                 </a>
             </li>
             <li>
-                <a href="users.php">
-                    <span class="material-symbols-outlined"> group </span>
-                    <p>Usuarios</p>
+                <a href="corporate_login.php">
+                    <span class="material-symbols-outlined"> engineering </span>
+                    <p>AeroAvance System</p>
                 </a>   
             </li>
             <li>

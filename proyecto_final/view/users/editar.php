@@ -11,10 +11,10 @@
                 <input type="text" name="type" value="<?php echo $v['type'] ?>" class="form-control"><br>
                 <label for="">Nombre</label><br>
                 <input type="text" name="name" value="<?php echo $v['name'] ?>" class="form-control"><br>
-                <label for="">Número de Teléfono</label><br>
-                <input type="text" name="phone_number" value="<?php echo $v['phone_number'] ?>" class="form-control"><br>
-                <label for="">Correo</label><br>
+                <label for="">Email</label><br>
                 <input type="text" name="email" value="<?php echo $v['email'] ?>" class="form-control"><br>
+                <label for="">Password</label><br>
+                <input type="text" name="password" value="<?php echo $v['password'] ?>" class="form-control"><br>
                 <label for="">Estado</label><br>
                 <input type="text" name="state" value="<?php echo $v['state'] ?>" class="form-control"><br>
 

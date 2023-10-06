@@ -25,29 +25,30 @@ class vuelosController
 
     static function compra()
     {
-        $vuelo = new VueloModel(); 
-        $idUser = 1;
+        $vuelo = new VueloModel();
+        $idUser = 6;
         $vuelo = $vuelo->insertCompra($_GET['id'], $idUser);
         $vueloSeriablizable = serialize($vuelo);
-        setcookie("datosCompra",$vueloSeriablizable, time() + 3600);
-        
+        setcookie("datosCompra", $vueloSeriablizable, time() + 3600);
+
         require 'view/compra.php';
     }
 
-    static function createPDF(){
-         // Muestra una lista de vuelos
-         require_once('lib/TCPDF/tcpdf.php');
-         $dataSerial = $_COOKIE['datosCompra'];
-         $vuelo = unserialize($dataSerial);
-         $pdf = new TCPDF();
+    static function createPDF()
+    {
+        // Muestra una lista de vuelos
+        require_once('lib/TCPDF/tcpdf.php');
+        $dataSerial = $_COOKIE['datosCompra'];
+        $vuelo = unserialize($dataSerial);
+        $pdf = new TCPDF();
         $pdf->SetTitle('Boleto de Avión');
 
         // Agrega una página al PDF
         $pdf->AddPage();
 
         // Colores personalizados
-        $colorFondo = array(200, 230, 255);  // Azul claro
-        $colorTexto = array(0, 0, 0);       // Negro
+        $colorFondo = array(200, 230, 255); // Azul claro
+        $colorTexto = array(0, 0, 0); // Negro
         $colorDestacado = array(0, 102, 204); // Azul
 
         // Establece el color de fondo
@@ -97,10 +98,10 @@ class vuelosController
         $pdf->Cell(0, 10, 'Asientos:', 0, 1);
         $pdf->SetFont('dejavusans', '', 14);
         $pdf->Cell(0, 10, $vuelo['Pasajeros'], 0, 1);
-        
+
         // Genera el PDF y lo muestra en el navegador
-        $pdf->Output('compra.pdf','I');
+        $pdf->Output('compra.pdf', 'I');
     }
 
-    
+
 }

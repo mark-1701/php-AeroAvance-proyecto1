@@ -28,7 +28,7 @@ h2 {
 
 /*ESTILOS MAIN*/
 main {
-    min-height: 100vh;
+    min-height: calc(100vh - 60px);
     width: 90%;
     margin: 0 auto;
     margin-top: 50px;
@@ -95,6 +95,8 @@ input[type=checkbox] {
 }
 
 .nav a {
+    text-decoration: none;
+    cursor: pointer;
     padding: 10px 20px;
     border-radius: 40px;
     display: flex;
