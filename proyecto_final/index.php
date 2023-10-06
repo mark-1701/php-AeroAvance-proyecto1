@@ -2,9 +2,8 @@
 
     <!-- MENÚ RÁPIDO -->
     <section class="nav">
-      <a href="customers_login.php"><span class="material-symbols-outlined"> airplane_ticket </span>Comp
-        Boleto</a>
-      <a href=""><span class="material-symbols-outlined"> engineering </span>AeroAvance System</a>
+      <a href="customers_login.php"><span class="material-symbols-outlined"> airplane_ticket </span>CompBoleto</a>
+      <a href="corporate_login.php"><span class="material-symbols-outlined"> engineering </span>AeroAvance System</a>
     </section>
 
     <!-- BANNER CON LA IMÁGEN -->
